@@ -23,7 +23,7 @@ app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -49,6 +49,7 @@ app.get('/', function(req, res) {
 
 
 app.post('/', async function(req, res) {
+  try{
 
   console.log('Login request received');
   const username=req.body.username;
@@ -64,6 +65,9 @@ app.post('/', async function(req, res) {
   }else{
     res.render('index',{ error: 'Invalid Username or Password'});
   }
+}catch(err){
+  console.log(err);
+}
 });
 
 
